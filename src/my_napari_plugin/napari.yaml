@@ -1,0 +1,57 @@
+name: my-napari-plugin
+display_name: My Plugin
+# use 'hidden' to remove plugin from napari hub search results
+visibility: public
+# see https://napari.org/stable/plugins/technical_references/manifest.html#fields for valid categories
+categories: ["Annotation", "Segmentation", "Acquisition"]
+contributions:
+  commands:
+    - id: my-napari-plugin.get_reader
+      python_name: my_napari_plugin._reader:napari_get_reader
+      title: Open data with My Plugin
+    - id: my-napari-plugin.write_multiple
+      python_name: my_napari_plugin._writer:write_multiple
+      title: Save multi-layer data with My Plugin
+    - id: my-napari-plugin.write_single_image
+      python_name: my_napari_plugin._writer:write_single_image
+      title: Save image data with My Plugin
+    - id: my-napari-plugin.make_sample_data
+      python_name: my_napari_plugin._sample_data:make_sample_data
+      title: Load sample data from My Plugin
+    - id: my-napari-plugin.make_container_widget
+      python_name: my_napari_plugin:ImageThreshold
+      title: Make threshold Container widget
+    - id: my-napari-plugin.make_magic_widget
+      python_name: my_napari_plugin:threshold_magic_widget
+      title: Make threshold magic widget
+    - id: my-napari-plugin.make_function_widget
+      python_name: my_napari_plugin:threshold_autogenerate_widget
+      title: Make threshold function widget
+    - id: my-napari-plugin.make_qwidget
+      python_name: my_napari_plugin:ExampleQWidget
+      title: Make example QWidget
+  readers:
+    - command: my-napari-plugin.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.npy']
+  writers:
+    - command: my-napari-plugin.write_multiple
+      layer_types: ['image*','labels*']
+      filename_extensions: []
+    - command: my-napari-plugin.write_single_image
+      layer_types: ['image']
+      filename_extensions: ['.npy']
+  sample_data:
+    - command: my-napari-plugin.make_sample_data
+      display_name: My Plugin
+      key: unique_id.1
+  widgets:
+    - command: my-napari-plugin.make_container_widget
+      display_name: Container Threshold
+    - command: my-napari-plugin.make_magic_widget
+      display_name: Magic Threshold
+    - command: my-napari-plugin.make_function_widget
+      autogenerate: true
+      display_name: Autogenerate Threshold
+    - command: my-napari-plugin.make_qwidget
+      display_name: Example QWidget
